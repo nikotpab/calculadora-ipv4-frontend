@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadora IPv4</title>
 <link rel="stylesheet" href="css/styles.css">
+<script src="js/app.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -14,98 +15,45 @@
 <div class="layout">
 <section class="entry" aria-labelledby="h-entrada">
 <h2 class="section-title" id="h-entrada">Entrada</h2>
+<form id="formulario" novalidate>
 <div class="seg" role="group" aria-label="Formato de entrada">
-<button type="button" aria-pressed="true">Dirección / prefijo</button>
-<button type="button" aria-pressed="false">Dirección y máscara</button>
+<button type="button" data-forma="a" aria-pressed="true">Dirección / prefijo</button>
+<button type="button" data-forma="b" aria-pressed="false">Dirección y máscara</button>
+</div>
+<div id="forma-a">
+<div class="field">
+<label for="in-entrada">Dirección con prefijo</label>
+<div class="hint" id="hint-entrada">Por ejemplo 192.168.10.25/27</div>
+<input id="in-entrada" name="entrada" type="text" autocomplete="off" spellcheck="false" aria-describedby="hint-entrada">
+</div>
+</div>
+<div id="forma-b" hidden>
+<div class="field">
+<label for="in-direccion">Dirección IPv4</label>
+<div class="hint" id="hint-direccion">Cuatro octetos de 0 a 255, por ejemplo 192.168.10.25</div>
+<input id="in-direccion" name="direccion" type="text" autocomplete="off" spellcheck="false" aria-describedby="hint-direccion">
 </div>
 <div class="field">
-<label for="in-addr">Dirección con prefijo</label>
-<div class="hint" id="hint-addr">Por ejemplo 192.168.10.25/27</div>
-<input id="in-addr" type="text" value="192.168.1.100/24" autocomplete="off" spellcheck="false" aria-describedby="hint-addr">
+<label for="in-mascara">Máscara decimal</label>
+<div class="hint" id="hint-mascara">Por ejemplo 255.255.255.224</div>
+<input id="in-mascara" name="mascara" type="text" autocomplete="off" spellcheck="false" aria-describedby="hint-mascara">
+</div>
 </div>
 <div class="actions">
-<button type="button" class="btn-primary">Calcular</button>
-<button type="button" class="btn-secondary">Limpiar</button>
+<button type="submit" class="btn-primary">Calcular</button>
+<button type="button" class="btn-secondary" id="btn-limpiar">Limpiar</button>
 </div>
+</form>
 <h3 class="sub">Casos de prueba</h3>
-<p class="sub-hint">Selecciona uno para cargarlo en el formulario.</p>
-<ul class="cases">
-<li><button type="button" aria-current="true"><span class="case-value">192.168.1.100/24</span><span class="case-tag">Clase C, privada</span></button></li>
-<li><button type="button"><span class="case-value">172.16.10.50/30</span><span class="case-tag">2 hosts</span></button></li>
-<li><button type="button"><span class="case-value">10.0.0.0/31</span><span class="case-tag">RFC 3021</span></button></li>
-<li><button type="button"><span class="case-value">192.168.1.25/32</span><span class="case-tag">Host único</span></button></li>
-<li><button type="button"><span class="case-value">224.0.0.1/24</span><span class="case-tag">Clase D</span></button></li>
-<li><button type="button"><span class="case-value">240.0.0.1/24</span><span class="case-tag">Clase E</span></button></li>
-<li><button type="button"><span class="case-value">127.0.0.1/8</span><span class="case-tag">Loopback</span></button></li>
-<li><button type="button"><span class="case-value">169.254.10.20/16</span><span class="case-tag">Link-local</span></button></li>
-<li><button type="button"><span class="case-value">192.168.1.300/24</span><span class="case-tag">Error</span></button></li>
-<li><button type="button"><span class="case-value">192.168.1.10/33</span><span class="case-tag">Error</span></button></li>
-<li><button type="button"><span class="case-value">192.168.1.10 + 255.0.255.0</span><span class="case-tag">Error</span></button></li>
-</ul>
+<p class="sub-hint" id="casos-hint">Selecciona uno para cargarlo en el formulario.</p>
+<ul class="cases" id="casos"></ul>
 </section>
-<section class="result" aria-labelledby="h-resultado">
-<div class="result-head">
-<div>
+<section class="result" id="resultado" aria-labelledby="h-resultado">
 <h2 class="section-title" id="h-resultado">Resultado</h2>
-<p class="interpreted">192.168.1.100 · máscara 255.255.255.0 · /24</p>
-</div>
-<button type="button" class="btn-copy">Copiar resultado</button>
-</div>
-<dl class="results">
-<div class="row">
-<dt>Dirección de red</dt>
-<dd class="mono">192.168.1.0</dd>
-</div>
-<div class="row">
-<dt>Broadcast dirigido</dt>
-<dd class="mono">192.168.1.255</dd>
-</div>
-<div class="row">
-<dt>Primer host utilizable</dt>
-<dd class="mono">192.168.1.1</dd>
-</div>
-<div class="row">
-<dt>Último host utilizable</dt>
-<dd class="mono">192.168.1.254</dd>
-</div>
-<div class="row">
-<dt>Direcciones en el bloque</dt>
-<dd class="mono">256</dd>
-</div>
-<div class="row">
-<dt>Hosts utilizables</dt>
-<dd class="mono">254</dd>
-</div>
-<div class="row">
-<dt>Máscara decimal</dt>
-<dd class="mono">255.255.255.0</dd>
-</div>
-<div class="row">
-<dt>Prefijo CIDR</dt>
-<dd class="mono">/24</dd>
-</div>
-<div class="row">
-<dt>Clase tradicional</dt>
-<dd>C</dd>
-</div>
-<div class="row">
-<dt>Clasificación de uso</dt>
-<dd>Privada (RFC 1918)</dd>
-</div>
-</dl>
-<h3 class="bits-title">Representación binaria</h3>
-<p class="bits-hint">Los bits en negrita pertenecen a la porción de red; los de peso normal, a la de host.</p>
-<div class="bits-row">
-<div class="bits-label">Dirección</div>
-<div class="bits-value"><span class="octet"><span class="net">11000000</span>.</span><span class="octet"><span class="net">10101000</span>.</span><span class="octet"><span class="net">00000001</span>.</span><span class="octet"><span class="host">01100100</span></span></div>
-</div>
-<div class="bits-row">
-<div class="bits-label">Máscara</div>
-<div class="bits-value"><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="host">00000000</span></span></div>
-</div>
-<div class="bits-row">
-<div class="bits-label">Red</div>
-<div class="bits-value"><span class="octet"><span class="net">11000000</span>.</span><span class="octet"><span class="net">10101000</span>.</span><span class="octet"><span class="net">00000001</span>.</span><span class="octet"><span class="host">00000000</span></span></div>
+<div class="empty">
+<p>Todavía no hay resultado.</p>
+<p class="small">Escribe una dirección con prefijo, o una dirección y su máscara, y pulsa Calcular. También puedes cargar uno de los casos de prueba.</p>
+<noscript><p class="small">Esta calculadora necesita JavaScript para consultar la API.</p></noscript>
 </div>
 </section>
 </div>
