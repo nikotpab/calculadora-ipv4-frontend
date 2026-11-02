@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora IPv4 · /31</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="page">
+<main class="main">
+<h1>Calculadora de direccionamiento IPv4</h1>
+<p class="lede">Ingresa una dirección con prefijo o con máscara decimal. Las dos formas dan el mismo resultado para la misma subred.</p>
+<div class="layout">
+<section class="entry" aria-labelledby="h-entrada">
+<h2 class="section-title" id="h-entrada">Entrada</h2>
+<div class="seg" role="group" aria-label="Formato de entrada">
+<button type="button" aria-pressed="true">Dirección / prefijo</button>
+<button type="button" aria-pressed="false">Dirección y máscara</button>
+</div>
+<div class="field">
+<label for="in-addr">Dirección con prefijo</label>
+<div class="hint" id="hint-addr">Por ejemplo 192.168.10.25/27</div>
+<input id="in-addr" type="text" value="10.0.0.0/31" autocomplete="off" spellcheck="false" aria-describedby="hint-addr">
+</div>
+<div class="actions">
+<button type="button" class="btn-primary">Calcular</button>
+<button type="button" class="btn-secondary">Limpiar</button>
+</div>
+<h3 class="sub">Casos de prueba</h3>
+<p class="sub-hint">Selecciona uno para cargarlo en el formulario.</p>
+<ul class="cases">
+<li><button type="button"><span class="case-value">192.168.1.100/24</span><span class="case-tag">Clase C, privada</span></button></li>
+<li><button type="button"><span class="case-value">172.16.10.50/30</span><span class="case-tag">2 hosts</span></button></li>
+<li><button type="button" aria-current="true"><span class="case-value">10.0.0.0/31</span><span class="case-tag">RFC 3021</span></button></li>
+<li><button type="button"><span class="case-value">192.168.1.25/32</span><span class="case-tag">Host único</span></button></li>
+<li><button type="button"><span class="case-value">224.0.0.1/24</span><span class="case-tag">Clase D</span></button></li>
+<li><button type="button"><span class="case-value">240.0.0.1/24</span><span class="case-tag">Clase E</span></button></li>
+<li><button type="button"><span class="case-value">127.0.0.1/8</span><span class="case-tag">Loopback</span></button></li>
+<li><button type="button"><span class="case-value">169.254.10.20/16</span><span class="case-tag">Link-local</span></button></li>
+<li><button type="button"><span class="case-value">192.168.1.300/24</span><span class="case-tag">Error</span></button></li>
+<li><button type="button"><span class="case-value">192.168.1.10/33</span><span class="case-tag">Error</span></button></li>
+<li><button type="button"><span class="case-value">192.168.1.10 + 255.0.255.0</span><span class="case-tag">Error</span></button></li>
+</ul>
+</section>
+<section class="result" aria-labelledby="h-resultado">
+<div class="result-head">
+<div>
+<h2 class="section-title" id="h-resultado">Resultado</h2>
+<p class="interpreted">10.0.0.0 · máscara 255.255.255.254 · /31</p>
+</div>
+<button type="button" class="btn-copy">Copiar resultado</button>
+</div>
+<div class="note" role="note"><strong>Enlace punto a punto (RFC 3021).</strong> Con prefijo /31 las dos direcciones del bloque se asignan a los extremos del enlace. No se reservan dirección de red ni broadcast dirigido.</div>
+<dl class="results">
+<div class="row">
+<dt>Dirección de red</dt>
+<dd class="na">No se reserva (RFC 3021)</dd>
+</div>
+<div class="row">
+<dt>Broadcast dirigido</dt>
+<dd class="na">No aplica en este enlace</dd>
+</div>
+<div class="row">
+<dt>Primer host utilizable</dt>
+<dd class="mono">10.0.0.0</dd>
+</div>
+<div class="row">
+<dt>Último host utilizable</dt>
+<dd class="mono">10.0.0.1</dd>
+</div>
+<div class="row">
+<dt>Direcciones en el bloque</dt>
+<dd class="mono">2</dd>
+</div>
+<div class="row">
+<dt>Hosts utilizables</dt>
+<dd class="mono">2</dd>
+</div>
+<div class="row">
+<dt>Máscara decimal</dt>
+<dd class="mono">255.255.255.254</dd>
+</div>
+<div class="row">
+<dt>Prefijo CIDR</dt>
+<dd class="mono">/31</dd>
+</div>
+<div class="row">
+<dt>Clase tradicional</dt>
+<dd>A</dd>
+</div>
+<div class="row">
+<dt>Clasificación de uso</dt>
+<dd>Privada (RFC 1918)</dd>
+</div>
+</dl>
+<h3 class="bits-title">Representación binaria</h3>
+<p class="bits-hint">Los bits en negrita pertenecen a la porción de red; los de peso normal, a la de host.</p>
+<div class="bits-row">
+<div class="bits-label">Dirección</div>
+<div class="bits-value"><span class="octet"><span class="net">00001010</span>.</span><span class="octet"><span class="net">00000000</span>.</span><span class="octet"><span class="net">00000000</span>.</span><span class="octet"><span class="net">0000000</span><span class="host">0</span></span></div>
+</div>
+<div class="bits-row">
+<div class="bits-label">Máscara</div>
+<div class="bits-value"><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="net">11111111</span>.</span><span class="octet"><span class="net">1111111</span><span class="host">0</span></span></div>
+</div>
+<div class="bits-row">
+<div class="bits-label">Red</div>
+<div class="bits-value"><span class="octet"><span class="net">00001010</span>.</span><span class="octet"><span class="net">00000000</span>.</span><span class="octet"><span class="net">00000000</span>.</span><span class="octet"><span class="net">0000000</span><span class="host">0</span></span></div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body>
+</html>

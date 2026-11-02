@@ -1,0 +1,111 @@
+/* Calculadora IPv4 — hoja de estilos de referencia.
+   Todas las medidas, colores y tamaños vienen del lienzo de diseño (ver ../design-spec.md).
+   Las fuentes se cargan desde ../fuentes/. */
+
+@font-face{font-family:"Ranade";font-weight:400;font-style:normal;font-display:swap;src:url("../fuentes/Ranade-Regular.otf") format("opentype")}
+@font-face{font-family:"Ranade";font-weight:500;font-style:normal;font-display:swap;src:url("../fuentes/Ranade-Medium.otf") format("opentype")}
+@font-face{font-family:"Ranade";font-weight:700;font-style:normal;font-display:swap;src:url("../fuentes/Ranade-Bold.otf") format("opentype")}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:swap;src:url("../fuentes/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url("../fuentes/ibm-plex-mono-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:swap;src:url("../fuentes/ibm-plex-mono-latin-600-normal.woff2") format("woff2")}
+
+:root{
+  --ink:#15191E;
+  --muted:#566070;
+  --dim:#5C6573;
+  --paper:#FAFAF8;
+  --white:#FFFFFF;
+  --rule:#DEDED7;
+  --control:#7C8490;
+  --placeholder:#6B7380;
+  --accent:#0B6B57;
+  --accent-hover:#074A3C;
+  --error:#A4261C;
+  --note-bg:#EDF3F0;
+  --note-border:#9DB5AC;
+  --current:#EAEFEC;
+  --sans:"Ranade","IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+
+body{margin:0}
+a{color:var(--accent)}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input::placeholder{color:var(--placeholder)}
+
+.page{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.main{box-sizing:border-box;max-width:1160px;margin:0 auto;padding:56px 32px 72px}
+
+h1{margin:0;font-size:32px;line-height:1.2;font-weight:600;letter-spacing:-0.01em}
+.lede{margin:12px 0 0;max-width:62ch;color:var(--muted)}
+
+/* Dos columnas: entrada a la izquierda, resultado a la derecha. Se apilan al ir estrechando la pantalla. */
+.layout{display:flex;flex-wrap:wrap;align-items:flex-start;gap:48px;margin-top:40px}
+.entry{flex:1 1 380px;max-width:440px;min-width:0}
+.result{flex:999 1 520px;min-width:0}
+
+.section-title{margin:0 0 16px;font-size:18px;font-weight:600}
+.result .section-title{margin:0}
+
+/* Selector de formato */
+.seg{display:flex;gap:2px;padding:2px;border:1px solid var(--control);border-radius:4px}
+.seg button{flex:1;min-height:40px;border:0;border-radius:3px;background:transparent;color:var(--ink);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+
+/* Campos */
+.field{margin-top:24px}
+.field + .field{margin-top:20px}
+.field label{display:block;font-size:15px;font-weight:500}
+.hint{margin-top:2px;font-size:14px;color:var(--muted)}
+.field input{box-sizing:border-box;width:100%;height:48px;margin-top:8px;padding:0 12px;border:1px solid var(--control);border-radius:4px;background:var(--white);color:var(--ink);font-family:var(--mono);font-size:17px}
+.field input[aria-invalid="true"]{padding:0 11px;border:2px solid var(--error)}
+.error-msg{display:flex;align-items:flex-start;gap:8px;margin-top:6px;font-size:15px;font-weight:500;color:var(--error)}
+.error-msg svg{flex:0 0 auto;margin-top:3px}
+
+/* Botones */
+.actions{display:flex;gap:12px;margin-top:24px}
+.btn-primary{min-height:48px;padding:0 28px;border:0;border-radius:4px;background:var(--accent);color:var(--white);font-family:inherit;font-size:16px;font-weight:500;cursor:pointer}
+.btn-primary:hover{background:var(--accent-hover)} /* hover no diseñado: sugerencia */
+.btn-secondary{min-height:48px;padding:0 18px;border:1px solid var(--control);border-radius:4px;background:transparent;color:var(--ink);font-family:inherit;font-size:16px;cursor:pointer}
+
+/* Lista de casos de prueba */
+.sub{margin:40px 0 2px;font-size:16px;font-weight:600}
+.sub-hint{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.cases li{border-bottom:1px solid var(--rule)}
+.cases button{display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;width:100%;min-height:44px;padding:0 8px;border:0;background:transparent;color:var(--ink);text-align:left;font-family:inherit;cursor:pointer}
+.cases button[aria-current="true"]{background:var(--current)}
+.case-value{font-family:var(--mono);font-size:15px;font-weight:400}
+.cases button[aria-current="true"] .case-value{font-weight:600}
+.case-tag{font-size:14px;color:var(--muted)}
+
+/* Resultado */
+.result-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.interpreted{margin:4px 0 0;font-family:var(--mono);font-size:15px;color:var(--muted)}
+.btn-copy{min-height:40px;padding:0 16px;border:1px solid var(--control);border-radius:4px;background:transparent;color:var(--ink);font-family:inherit;font-size:15px;cursor:pointer}
+
+.note{margin-top:20px;padding:14px 16px;border:1px solid var(--note-border);border-radius:4px;background:var(--note-bg);font-size:15px}
+.note strong{font-weight:600}
+
+.results{margin:20px 0 0;padding:0;border-top:1px solid var(--ink)}
+.results .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 24px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.results dt{flex:0 1 220px;margin:0;font-size:15px;color:var(--muted)}
+.results dd{flex:1 1 200px;margin:0;font-family:var(--sans);font-size:16px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.results dd.mono{font-family:var(--mono);font-size:17px}
+.results dd.na{color:var(--dim)}
+
+/* Representación binaria */
+.bits-title{margin:40px 0 0;font-size:16px;font-weight:600}
+.bits-hint{margin:2px 0 8px;font-size:14px;color:var(--muted)}
+.bits-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 24px;padding:6px 0}
+.bits-label{flex:0 1 120px;font-size:15px;color:var(--muted)}
+.bits-value{flex:1 1 320px;font-family:var(--mono);font-size:16px;letter-spacing:0.02em}
+.octet{display:inline-block}
+.net{font-weight:600;color:var(--ink)}
+.host{font-weight:400;color:var(--dim)}
+
+/* Estado vacío (cuando hay un error de validación) */
+.empty{margin-top:20px;padding-top:20px;border-top:1px solid var(--ink)}
+.empty p{margin:0;font-size:16px}
+.empty .small{margin:12px 0 0;max-width:58ch;font-size:14px;color:var(--muted)}
